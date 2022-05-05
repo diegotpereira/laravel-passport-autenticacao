@@ -43,6 +43,6 @@ class User extends Authenticatable
     ];
 	public function postars() 
 	{
-		return $this->hasMany(Post::class);
+		return $this->hasMany(Postar::class);
 	}
 }

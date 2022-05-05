@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Postar;
 
 class PostController extends Controller
 {
     //
 	public function index() 
 	{
-		$postars = auth()->user->postars;
+		$postars = auth()->user()->postars;
 
 		return response()->json([
 			'success' => true,
@@ -19,7 +19,7 @@ class PostController extends Controller
 	}
 	public function show($id)
 	{
-		$post = auth()->user->postars()->find($id);
+		$post = auth()->user()->postars()->find($id);
 
 		if (!$post) {
 			return response()->json([
@@ -38,16 +38,16 @@ class PostController extends Controller
 			'titulo' => 'required',
 			'descricao' => 'required'
 		]);
-		$post = new Post();
+		$post = new Postar();
 		$post->titulo = $request->titulo;
 		$post->descricao = $request->descricao;
 
-		if (auth()->user()->postars()->save($post)) {
+		if (auth()->user()->postars()->save($post)) 
 			return response()->json([
 				'success' => true,
 				'data' => $post->toArray()
 			]);
-		} else 
+		 else 
 		   return response()->json([
 			   'success' => false,
 			   'message' => 'Postagem não adicionada'
